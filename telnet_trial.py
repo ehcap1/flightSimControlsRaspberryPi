@@ -35,9 +35,9 @@ if __name__ == "__main__":
             if sock == s:
                     data = sock.recv(4096)
                     sys.stdout.write(data)
-
-        time.sleep(0.5)
-        msg = 'set sim/flightmodel/controls/flaprqst '+str(random.random())+'\n'
-        s.send(msg)
+#*****test done to see if program could change controls from pi to flightsim on other computer******
+        #time.sleep(0.5)
+        #msg = 'set sim/flightmodel/controls/flaprqst '+str(random.random())+'\n'
+        #s.send(msg)
 
 
