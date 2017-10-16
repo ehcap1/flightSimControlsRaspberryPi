@@ -54,14 +54,14 @@ if __name__ == "__main__":
         if (GPIO.input(Btn1Pin) == GPIO.HIGH):
             msg = ("set sim/cockpit/engine/fuel_pump_on [1,2,0,0,0,0,0,0]\n")
             s.send(msg)
-            time.sleep(0.2)
+            #time.sleep(0.2)
 
 
 
         else:
             msg = ("set sim/cockpit/engine/fuel_pump_on [0,2,0,0,0,0,0,0]\n")
             s.send(msg)
-            time.sleep(0.2)
+            #time.sleep(0.2)
 
         if (GPIO.input(Btn2Pin) == GPIO.HIGH) :
             # Check whether the button is pressed or not.
@@ -69,12 +69,12 @@ if __name__ == "__main__":
             msg = ('set sim/cockpit2/switches/beacon_on 1\n')
 
             s.send(msg)
-            time.sleep(0.2)
+            #time.sleep(0.2)
 
         else:
             msg = ('set sim/cockpit2/switches/beacon_on 0\n')
             s.send(msg)
-            time.sleep(0.2)
+            #time.sleep(0.2)
 
 
 
