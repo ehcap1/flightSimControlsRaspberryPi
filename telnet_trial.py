@@ -6,14 +6,30 @@ import flightfunctions
 
 Btn1Pin = 11    # pin11 fuel pump off or on
 Btn2Pin = 12    # pin12 bcn on or off
+engineKey0 = 7
+engineKey1 = 13
+engineKey2 = 15
+engineKey3 = 29
+engineKey4 = 31
+
 
 def setup():
     GPIO.setmode(GPIO.BOARD)       # Numbers GPIOs by physical location
     GPIO.setup(Btn1Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)   # Set LedPin's mode is input
     GPIO.setup(Btn2Pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
+    GPIO.setup(engineKey0, GPIO.IN, pull_up_down=GPIO.PUD_UP)   # Set LedPin's mode is input
+    GPIO.setup(engineKey1, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    GPIO.setup(engineKey2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    GPIO.setup(engineKey3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    GPIO.setup(engineKey4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #subscribing to flaps, beacon, and fuel pump 1
-messages = ["sub sim/flightmodel/controls/flaprqst\n", "sub sim/cockpit2/switches/beacon_on\n", "sub sim/cockpit/engine/fuel_pump_on 1\n"]
+messages = ["sub sim/flightmodel/controls/flaprqst\n", "sub sim/cockpit2/switches/beacon_on\n", "sub sim/cockpit/engine/fuel_pump_on 1\n", "sub sim/cockpit2/engine/actuators/ignition_key 1\n"]
+
+
 
 #main function
 if __name__ == "__main__":
@@ -38,6 +54,42 @@ if __name__ == "__main__":
      #python 3 str.encode('')
         s.send(msg) #bytes(msg, 'utf-8'))
         time.sleep(0.5)
+
+
+    def engineKey():
+        if (GPIO.input(engineKey3) == GPIO.LOW):
+            msg = ("set sim/cockpit2/engine/actuators/ignition_key [3,0,0,0,0,0,0,0] \n")
+            s.send(msg)
+            print("both")
+
+        elif(GPIO.input(engineKey4) == GPIO.LOW):
+            while (GPIO.input(engineKey4) == GPIO.LOW):
+                msg = ("set sim/cockpit2/engine/actuators/ignition_key [4,0,0,0,0,0,0,0]\n")
+                s.send(msg)
+                print("starter")
+
+        elif(GPIO.input(engineKey2) == GPIO.LOW):
+            msg = ("set sim/cockpit2/engine/actuators/ignition_key [2,0,0,0,0,0,0,0]\n")
+            s.send(msg)
+            print("right")
+
+        elif (GPIO.input(engineKey1) == GPIO.LOW):
+            msg = ("set sim/cockpit2/engine/actuators/ignition_key [1,0,0,0,0,0,0,0]\n")
+            s.send(msg)
+            print("left")
+
+
+        elif (GPIO.input(engineKey0) == GPIO.LOW):
+            msg = ("set sim/cockpit2/engine/actuators/ignition_key [0]\n")
+            s.send(msg)
+            print("off")
+        else:
+            return
+
+
+
+
+
     def btn1():
         if (GPIO.input(Btn1Pin) == GPIO.HIGH):
             msg = ("set sim/cockpit/engine/fuel_pump_on [1,2,0,0,0,0,0,0]\n")
@@ -53,7 +105,7 @@ if __name__ == "__main__":
         else:
             msg = ('set sim/cockpit2/switches/beacon_on 0\n')
             s.send(msg)
-    btnlist = [btn2,btn1]
+    btnlist = [btn2, btn1, engineKey]
     while 1:
 
         socket_list = [s]
@@ -112,4 +164,5 @@ if __name__ == "__main__":
         #time.sleep(0.5)
         # msg = 'set sim/flightmodel/controls/flaprqst '+str(random.random())+'\n'
         # s.send(msg)
+
 
