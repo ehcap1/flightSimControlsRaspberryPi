@@ -6,4 +6,7 @@ This program is being tested with x-plane 11.  Quite possibly will need to be ad
 
 To get x-plane11 to talk to the initial start up file please install the ext plane plugin from https://github.com/vranki/ExtPlane
 
-currently only working in python 2
+
+update 10/30/17
+Main branch now workikng in python3 
+thruster branch is still only written for python2 
