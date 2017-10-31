@@ -1,3 +1,4 @@
+# telnet program example
 import RPi.GPIO as GPIO
 import socket, select, string, sys, time, random
 import flightfunctions
@@ -57,24 +58,24 @@ if __name__ == "__main__":
     def engineKey():
         if (GPIO.input(engineKey3) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [3,0,0,0,0,0,0,0] \n")
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
 
         elif(GPIO.input(engineKey4) == GPIO.LOW):
             while (GPIO.input(engineKey4) == GPIO.LOW):
                 msg = ("set sim/cockpit2/engine/actuators/ignition_key [4,0,0,0,0,0,0,0]\n")
-                sock.send(str.encode(msg))
+                s.send(str.encode(msg))
 
         elif(GPIO.input(engineKey2) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [2,0,0,0,0,0,0,0]\n")
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
 
         elif (GPIO.input(engineKey1) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [1,0,0,0,0,0,0,0]\n")
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
 
         elif (GPIO.input(engineKey0) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [0]\n")
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
 
         else:
             pass
@@ -82,19 +83,19 @@ if __name__ == "__main__":
     def btn1():
         if (GPIO.input(Btn1Pin) == GPIO.LOW):
             msg = ("set sim/cockpit/engine/fuel_pump_on [1,2,0,0,0,0,0,0]\n")
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
         else:
             msg = ("set sim/cockpit/engine/fuel_pump_on [0,2,0,0,0,0,0,0]\n")
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
 
     def btn2():
         if (GPIO.input(Btn2Pin) == GPIO.LOW) :
                 # Check whether the button is pressed or not.
                 msg = ('set sim/cockpit2/switches/beacon_on 1\n')
-                sock.send(str.encode(msg))
+                s.send(str.encode(msg))
         else:
             msg = ('set sim/cockpit2/switches/beacon_on 0\n')
-            sock.send(str.encode(msg))
+            s.send(str.encode(msg))
 
     btnlist = [btn2, btn1, engineKey]
 
@@ -114,49 +115,3 @@ if __name__ == "__main__":
 
         for func in btnlist:
             func()
-
-
-        # if (GPIO.input(Btn1Pin) == GPIO.HIGH):
-        #     msg = ("set sim/cockpit/engine/fuel_pump_on [1,2,0,0,0,0,0,0]\n")
-        #     sock.send(str.encode(msg))
-
-
-
-
-        # else:
-        #     msg = ("set sim/cockpit/engine/fuel_pump_on [0,2,0,0,0,0,0,0]\n")
-        #     sock.send(str.encode(msg))
-        # for func in btnlist:
-        #     func()
-
-
-        # if (GPIO.input(Btn2Pin) == GPIO.HIGH) :
-        #     # Check whether the button is pressed or not.
-
-        #     msg = ('set sim/cockpit2/switches/beacon_on 1\n')
-
-        #     sock.send(str.encode(msg))
-
-
-        # else:
-        #     msg = ('set sim/cockpit2/switches/beacon_on 0\n')
-        #     sock.send(str.encode(msg))
-
-
-
-
-
-
-
-
-
-
-           #msg = "set sim/flightmodel/controls/flaprqst 0\n"
-            #sock.send(str.encode(msg))
-
-
-        #time.sleep(0.5)
-        # msg = 'set sim/flightmodel/controls/flaprqst '+str(random.random())+'\n'
-        # sock.send(str.encode(msg))
-
-
