@@ -10,3 +10,7 @@ To get x-plane11 to talk to the initial start up file please install the ext pla
 update 10/30/17
 Main branch now workikng in python3 
 thruster branch is still only written for python2 
+
+10/31/17
+from this point forward the hardware that will be used is the the Nation Electronics Raspberry Pi HAT - 32 Port Expander that uses two MCP23017 chips and the code to interact with that will be Adafruit_GPIO folder
+shall be looking into updating the original code in the next few days
