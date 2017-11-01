@@ -51,31 +51,30 @@ if __name__ == "__main__":
         sys.exit()
 
     for msg in messages:
-     #python 3 str.encode('')
-        s.send(msg) #bytes(msg, 'utf-8'))
+        s.send(str.encode(msg)) 
         time.sleep(0.5)
 
     def engineKey():
         if (GPIO.input(engineKey3) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [3,0,0,0,0,0,0,0] \n")
-            s.send(msg)
+            s.send(str.encode(msg))
 
         elif(GPIO.input(engineKey4) == GPIO.LOW):
             while (GPIO.input(engineKey4) == GPIO.LOW):
                 msg = ("set sim/cockpit2/engine/actuators/ignition_key [4,0,0,0,0,0,0,0]\n")
-                s.send(msg)
+                s.send(str.encode(msg))
 
         elif(GPIO.input(engineKey2) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [2,0,0,0,0,0,0,0]\n")
-            s.send(msg)
+            s.send(str.encode(msg))
 
         elif (GPIO.input(engineKey1) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [1,0,0,0,0,0,0,0]\n")
-            s.send(msg)
+            s.send(str.encode(msg))
 
         elif (GPIO.input(engineKey0) == GPIO.LOW):
             msg = ("set sim/cockpit2/engine/actuators/ignition_key [0]\n")
-            s.send(msg)
+            s.send(str.encode(msg))
 
         else:
             return
@@ -109,7 +108,8 @@ if __name__ == "__main__":
         for sock in read_sockets:
             if sock == s:
                 data = sock.recv(4096)
-                sys.stdout.write(str(data))
+                reply = data.decode('utf-8')
+                print(reply)
 
         for func in btnlist:
             func()
