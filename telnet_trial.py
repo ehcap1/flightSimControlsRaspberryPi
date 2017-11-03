@@ -1,3 +1,9 @@
+#old this maybe the last marking update on this file look for main.py for the new running file that runs with a GPIO Expander needed to interface more options
+#This is the version that works on just the GPIO pins. 
+
+
+
+
 # telnet program example
 import RPi.GPIO as GPIO
 import socket, select, string, sys, time, random
